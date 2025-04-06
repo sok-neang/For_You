@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Birthday</title>
+</head>
+<body>
+  <body>
+    <div class="container">
+      <div class="birthday-text" id="text">Happy  Birthday  To  You!</div>
+      <button class="surprise-btn" id="surpriseBtn">Click here</button>
+    </div>
+  
+    <div class="overlay" id="overlay"></div>
+    <div class="card" id="card">
+      <h2>To Special Person ✨</h2>
+      <p>On your specail day, I just wanted to say...</p>
+      <p>You're amazing in every way!</p>
+      <p>May your day be filled with joy, laughter, and all the things that make you smile.</p>
+      <p>Wish I could be there to celebrate with you! 💖</p>
+      <button class="card-close" id="closeBtn">Close</button>
+    </div>
+  
+    <script>
+      const text = document.getElementById("text");
+      text.innerHTML = text.textContent.split("").map((letter, i) => 
+        `<span style="animation-delay: ${i * 0.1}s">${letter}</span>`
+      ).join("");
+  
+      function createBalloon() {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        balloon.style.animationDuration = Math.random() * 5 + 5 + "s";
+        document.body.appendChild(balloon);
+        
+        setTimeout(() => {
+          balloon.remove();
+        }, 10000);
+      }
+      setInterval(createBalloon, 500);
+  
+      function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 3000);
+      }
+      setInterval(createConfetti, 100);
+  
+      function createHearts() {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.className = "hearts";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(heart);
+        
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+      setInterval(createHearts, 300);
+  
+      const surpriseBtn = document.getElementById("surpriseBtn");
+      const card = document.getElementById("card");
+      const overlay = document.getElementById("overlay");
+      const closeBtn = document.getElementById("closeBtn");
+  
+      surpriseBtn.addEventListener('click', () => {
+        card.classList.add('active');
+        overlay.classList.add('active');
+
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            createConfetti();
+            createHearts();
+          }, i * 50);
+        }
+      });
+  
+      closeBtn.addEventListener('click', () => {
+        card.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+  
+      overlay.addEventListener('click', () => {
+        card.classList.remove('active');
+        overlay.classList.remove('active');
+      });
+    </script>
+  </body>
+</body>
+</html>
